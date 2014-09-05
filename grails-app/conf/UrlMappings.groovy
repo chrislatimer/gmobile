@@ -9,5 +9,7 @@ class UrlMappings {
 
         "/"(view:"/index")
         "500"(view:'/error')
+        "/phones"(version:'1.0', resources:"phone", namespace:'v1')
+        "/phones"(version:'2.0', resources:"phone", namespace:'v2')
 	}
 }

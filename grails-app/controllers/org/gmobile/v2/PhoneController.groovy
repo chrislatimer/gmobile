@@ -1,6 +1,7 @@
 package org.gmobile.v2
 
 import grails.converters.JSON
+import grails.converters.XML
 import grails.rest.RestfulController
 import org.gmobile.Phone
 
@@ -10,6 +11,21 @@ class PhoneController extends RestfulController<Phone> {
 
     public PhoneController() {
         super(Phone)
+    }
+
+    def show(Phone phone) {
+        withFormat {
+            json {
+                JSON.use(params?.detail?.toLowerCase() ?: "complete") {
+                    respond phone
+                }
+            }
+            xml {
+                XML.use(params?.detail?.toLowerCase() ?: "complete") {
+                    respond phone
+                }
+            }
+        }
     }
 
 }

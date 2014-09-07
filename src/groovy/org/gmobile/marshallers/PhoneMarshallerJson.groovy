@@ -6,7 +6,7 @@ import org.gmobile.Phone
 
 class PhoneMarshallerJson extends ClosureObjectMarshaller<JSON> {
 
-    static final marshal = { Phone phone ->
+    public static final marshal = { Phone phone ->
         def map = [:]
         map.name = phone.name
         map.manufacturer = [:]

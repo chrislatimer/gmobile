@@ -1,7 +1,10 @@
+import grails.converters.JSON
 import grails.util.Environment
 import org.gmobile.Manufacturer
 import org.gmobile.Phone
 import org.gmobile.Variation
+import org.gmobile.marshallers.PhoneMarshallerJson
+import org.gmobile.marshallers.PhoneMarshallerJsonCompact
 
 class BootStrap {
 
@@ -38,6 +41,14 @@ class BootStrap {
                 }
                 man.save(failOnError: true)
             }
+        }
+
+        JSON.createNamedConfig('compact') {
+            it.registerObjectMarshaller(Phone, PhoneMarshallerJsonCompact.marshal)
+        }
+
+        JSON.createNamedConfig('complete') {
+            it.registerObjectMarshaller(Phone, PhoneMarshallerJson.marshal)
         }
     }
     def destroy = {

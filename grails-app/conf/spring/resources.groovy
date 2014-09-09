@@ -21,6 +21,11 @@ beans = {
         priority = 1
     }
 
-    phoneRenderer(ApiRendererJson, Phone)
-    phoneCollectionRenderer(ApiCollectionRendererJson, Phone)
+    phoneRenderer(ApiRendererJson, Phone) {
+        label = "phone"
+    }
+
+    phoneCollectionRenderer(ApiCollectionRendererJson, Phone) {
+        label = "phones"
+    }
 }

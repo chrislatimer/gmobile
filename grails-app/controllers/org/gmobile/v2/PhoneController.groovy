@@ -29,10 +29,14 @@ class PhoneController extends RestfulController<Phone> {
 
     def index() {
         params.max = Math.min(params.max ?: 10, 100)
+
         def detail = params?.detail?.toLowerCase() ?: "compact"
         withFormat {
             json {
-                respond Phone.list(params), [detail:detail]
+                respond Phone.list(params), [detail:detail,
+                                             paging:[totalCount: Phone.count(),
+                                                     currentMax: params.max,
+                                                     curentOffset: params.offset ?: 0]]
             }
             xml {
                 XML.use(detail) {

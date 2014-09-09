@@ -32,6 +32,12 @@ class ApiRendererJson<T> extends AbstractRenderer<T> {
         writer.object()
         writer.key(getLabel())
         converter.renderPartial(writer)
+
+        if(context.arguments?.paging) {
+            writer.key("paging")
+            converter = context.arguments.paging as ApiJSON
+            converter.renderPartial(writer)
+        }
         writer.endObject()
 
         out.flush()

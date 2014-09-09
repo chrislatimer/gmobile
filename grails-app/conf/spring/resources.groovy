@@ -4,6 +4,7 @@ import org.codehaus.groovy.grails.web.converters.configuration.ObjectMarshallerR
 import org.gmobile.Phone
 import org.gmobile.marshallers.PhoneMarshallerJsonCompact
 import org.gmobile.marshallers.PhoneMarshallerXml
+import org.gmobile.renderers.ApiCollectionRendererJson
 import org.gmobile.renderers.ApiRendererJson
 
 // Place your Spring DSL code here
@@ -21,4 +22,5 @@ beans = {
     }
 
     phoneRenderer(ApiRendererJson, Phone)
+    phoneCollectionRenderer(ApiCollectionRendererJson, Phone)
 }

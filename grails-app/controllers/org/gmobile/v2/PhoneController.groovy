@@ -26,4 +26,19 @@ class PhoneController extends RestfulController<Phone> {
             }
         }
     }
+
+    def index() {
+        params.max = Math.min(params.max ?: 10, 100)
+        def detail = params?.detail?.toLowerCase() ?: "compact"
+        withFormat {
+            json {
+                respond Phone.list(params), [detail:detail]
+            }
+            xml {
+                XML.use(detail) {
+                    respond phone
+                }
+            }
+        }
+    }
 }

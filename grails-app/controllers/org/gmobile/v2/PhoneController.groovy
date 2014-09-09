@@ -17,7 +17,7 @@ class PhoneController extends RestfulController<Phone> {
         def detail = params.detail ?: "complete"
         withFormat {
             json {
-                respond(phone, [detail:detail])
+                respond(phone, [detail:detail, include:params?.list('include')])
             }
             xml {
                 XML.use(params?.detail?.toLowerCase() ?: "complete") {

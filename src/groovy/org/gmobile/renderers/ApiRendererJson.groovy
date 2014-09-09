@@ -38,6 +38,24 @@ class ApiRendererJson<T> extends AbstractRenderer<T> {
             converter = context.arguments.paging as ApiJSON
             converter.renderPartial(writer)
         }
+
+        if(context.arguments?.include) {
+            writer.key("include")
+            writer.array()
+            context.arguments?.include.each { includeProp ->
+                JSON.use("compact") {
+                    converter = object.properties.get(includeProp) as ApiJSON
+                }
+
+                writer.object()
+                writer.key(includeProp)
+                converter.renderPartial(writer)
+                writer.endObject()
+
+            }
+            writer.endArray()
+        }
+
         writer.endObject()
 
         out.flush()

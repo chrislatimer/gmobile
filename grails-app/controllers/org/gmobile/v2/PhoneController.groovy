@@ -14,11 +14,10 @@ class PhoneController extends RestfulController<Phone> {
     }
 
     def show(Phone phone) {
+        def detail = params.detail ?: "complete"
         withFormat {
             json {
-                JSON.use(params?.detail?.toLowerCase() ?: "complete") {
-                    respond phone
-                }
+                respond(phone, [detail:detail])
             }
             xml {
                 XML.use(params?.detail?.toLowerCase() ?: "complete") {
@@ -27,5 +26,4 @@ class PhoneController extends RestfulController<Phone> {
             }
         }
     }
-
 }

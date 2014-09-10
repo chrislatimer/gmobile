@@ -20,9 +20,7 @@ class PhoneController extends RestfulController<Phone> {
                 respond(phone, [detail:detail, include:params?.list('include')])
             }
             xml {
-                XML.use(params?.detail?.toLowerCase() ?: "complete") {
-                    respond phone
-                }
+                respond phone
             }
         }
     }
@@ -39,9 +37,7 @@ class PhoneController extends RestfulController<Phone> {
                                                      curentOffset: params.offset ?: 0]]
             }
             xml {
-                XML.use(detail) {
-                    respond phone
-                }
+                respond Phone.list(params)
             }
         }
     }

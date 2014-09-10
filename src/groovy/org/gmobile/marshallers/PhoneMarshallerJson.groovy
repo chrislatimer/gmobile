@@ -1,12 +1,11 @@
 package org.gmobile.marshallers
 
-import grails.converters.JSON
-import org.codehaus.groovy.grails.web.converters.marshaller.ClosureObjectMarshaller
 import org.gmobile.Phone
+import org.springframework.http.HttpMethod
 
-class PhoneMarshallerJson extends ClosureObjectMarshaller<JSON> {
+class PhoneMarshallerJson extends NamedMarshallerJson {
 
-    public static final marshal = { Phone phone ->
+    public static marshal = { linkGenerator, Phone phone ->
         def map = [:]
         map.name = phone.name
         map.manufacturer = [:]
@@ -21,6 +20,11 @@ class PhoneMarshallerJson extends ClosureObjectMarshaller<JSON> {
             v.salePrice = variation.salePrice
             map.variations << v
         }
+        map.links = []
+        map.links << [rel:"self", href:linkGenerator.link(resource: phone, method: HttpMethod.GET, absolute: true),
+                      uri:linkGenerator.link(resource: phone, method: HttpMethod.GET)]
+        map.links << [rel:"manufacturer", href:linkGenerator.link(resource: phone.manufacturer, method: HttpMethod.GET, absolute: true),
+                      uri:linkGenerator.link(resource: phone.manufacturer, method: HttpMethod.GET)]
         map
     }
 
